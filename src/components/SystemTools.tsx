@@ -4,6 +4,7 @@ import { useSystemStats } from "../hooks/useSystemStats";
 import { SPRING } from "../lib/constants";
 import { formatTime } from "../lib/format";
 import type { Pomodoro } from "../types";
+import { Toggle } from "./Toggle";
 
 interface SystemToolsProps {
   pomodoro: Pomodoro;
@@ -34,19 +35,13 @@ export function SystemTools({ pomodoro, dnd, onToggleDnd }: SystemToolsProps) {
           role="switch"
           aria-checked={dnd}
           onClick={onToggleDnd}
-          className="flex h-7 items-center gap-2 rounded-xl bg-white/[0.07] px-2 hover:bg-white/[0.11]"
+          className="flex h-7 items-center gap-2 rounded-xl bg-ink/[0.07] px-2 hover:bg-ink/[0.11]"
         >
-          <Moon size={13} className={dnd ? "text-indigo-300" : "text-white/50"} strokeWidth={2.4} />
-          <span className="min-w-0 flex-1 truncate text-left text-[11px] font-medium text-white/80">
+          <Moon size={13} className={dnd ? "text-indigo-300" : "text-ink/50"} strokeWidth={2.4} />
+          <span className="min-w-0 flex-1 truncate text-left text-[11px] font-medium text-ink/80">
             Не беспокоить
           </span>
-          <span
-            className={`flex h-4 w-7 items-center rounded-full px-0.5 ${
-              dnd ? "justify-end bg-indigo-400" : "justify-start bg-white/20"
-            }`}
-          >
-            <motion.span layout transition={SPRING.snappy} className="h-3 w-3 rounded-full bg-white" />
-          </span>
+          <Toggle on={dnd} activeClass="bg-indigo-400" />
         </button>
       </div>
 
@@ -69,11 +64,11 @@ function Meter({ Icon, label, value, ratio }: MeterProps) {
   return (
     <div>
       <div className="flex items-center gap-1.5">
-        <Icon size={12} className="text-white/50" strokeWidth={2.2} />
-        <span className="text-[11px] font-medium text-white/55">{label}</span>
-        <span className="ml-auto text-[11px] font-semibold text-white/90">{value}</span>
+        <Icon size={12} className="text-ink/50" strokeWidth={2.2} />
+        <span className="text-[11px] font-medium text-ink/55">{label}</span>
+        <span className="ml-auto text-[11px] font-semibold text-ink/90">{value}</span>
       </div>
-      <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-white/12">
+      <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-ink/12">
         <motion.div
           className={`h-full w-full origin-left rounded-full ${color}`}
           initial={false}
@@ -90,16 +85,16 @@ function PomodoroCard({ pomodoro }: { pomodoro: Pomodoro }) {
   const progress = 1 - pomodoro.remainingMs / pomodoro.totalMs;
 
   return (
-    <div className="relative flex flex-col justify-between overflow-hidden rounded-2xl bg-white/[0.07] p-2.5">
+    <div className="relative flex flex-col justify-between overflow-hidden rounded-2xl bg-ink/[0.07] p-2.5">
       <div className="flex items-center gap-1.5">
         <PhaseIcon size={12} className="text-orange-400" strokeWidth={2.4} />
-        <span className="text-[11px] font-medium text-white/60">
+        <span className="text-[11px] font-medium text-ink/60">
           {pomodoro.phase === "focus" ? "Фокус" : "Перерыв"}
         </span>
       </div>
 
       <div className="flex items-end justify-between">
-        <span className="text-[26px] font-semibold leading-none tracking-tight text-white">
+        <span className="text-[26px] font-semibold leading-none tracking-tight text-ink">
           {formatTime(pomodoro.remainingMs)}
         </span>
         <div className="flex items-center gap-1">
@@ -108,7 +103,7 @@ function PomodoroCard({ pomodoro }: { pomodoro: Pomodoro }) {
             aria-label="Сбросить таймер"
             title="Сбросить"
             onClick={pomodoro.reset}
-            className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 text-white/70 hover:bg-white/20"
+            className="flex h-7 w-7 items-center justify-center rounded-full bg-ink/10 text-ink/70 hover:bg-ink/20"
             whileTap={{ scale: 0.86 }}
             transition={SPRING.snappy}
           >

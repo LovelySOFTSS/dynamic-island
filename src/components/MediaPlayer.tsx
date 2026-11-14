@@ -17,7 +17,7 @@ export function MediaPlayer({ controller, accent }: MediaPlayerProps) {
 
   if (!media.active) {
     return (
-      <div className="flex h-full flex-col items-center justify-center gap-1.5 text-white/45">
+      <div className="flex h-full flex-col items-center justify-center gap-1.5 text-ink/45">
         <Music2 size={22} strokeWidth={1.8} />
         <span className="text-[12px] font-medium">Сейчас ничего не играет</span>
       </div>
@@ -37,7 +37,7 @@ export function MediaPlayer({ controller, accent }: MediaPlayerProps) {
             transition={SPRING.gentle}
           />
           <motion.div
-            className="relative h-full w-full overflow-hidden rounded-[13px] bg-white/10"
+            className="relative h-full w-full overflow-hidden rounded-[13px] bg-ink/10"
             style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.1)" }}
             initial={false}
             animate={{ scale: media.playing ? 1 : 0.92 }}
@@ -47,17 +47,17 @@ export function MediaPlayer({ controller, accent }: MediaPlayerProps) {
               <img src={cover} alt="" className="h-full w-full object-cover" draggable={false} />
             ) : (
               <div className="flex h-full w-full items-center justify-center">
-                <Music2 size={22} className="text-white/60" />
+                <Music2 size={22} className="text-ink/60" />
               </div>
             )}
           </motion.div>
         </div>
 
         <div className="min-w-0 flex-1">
-          <div className="truncate text-[14px] font-semibold leading-tight text-white">
+          <div className="truncate text-[14px] font-semibold leading-tight text-ink">
             {media.title || "Без названия"}
           </div>
-          <div className="mt-0.5 truncate text-[12px] font-medium leading-tight text-white/55">
+          <div className="mt-0.5 truncate text-[12px] font-medium leading-tight text-ink/55">
             {media.artist || "Неизвестный исполнитель"}
           </div>
         </div>
@@ -98,7 +98,7 @@ function ControlButton({ label, onClick, large = false, children }: ControlButto
       aria-label={label}
       title={label}
       onClick={onClick}
-      className={`flex items-center justify-center rounded-full text-white/90 hover:bg-white/10 ${
+      className={`flex items-center justify-center rounded-full text-ink/90 hover:bg-ink/10 ${
         large ? "h-9 w-9" : "h-8 w-8"
       }`}
       whileHover={{ scale: 1.08 }}
@@ -142,7 +142,7 @@ function ProgressBar({ media, accent, onSeek }: ProgressBarProps) {
 
   return (
     <div className="flex items-center gap-2.5">
-      <span className="w-9 text-[10px] font-medium text-white/50">
+      <span className="w-9 text-[10px] font-medium text-ink/50">
         {formatTime(scrub !== null ? scrub * media.durationMs : position)}
       </span>
       <div
@@ -164,7 +164,7 @@ function ProgressBar({ media, accent, onSeek }: ProgressBarProps) {
         onPointerCancel={() => setScrub(null)}
       >
         <motion.div
-          className="h-1 w-full overflow-hidden rounded-full bg-white/15"
+          className="h-1 w-full overflow-hidden rounded-full bg-ink/15"
           initial={false}
           animate={{ scaleY: scrub !== null ? 1.8 : 1 }}
           whileHover={{ scaleY: 1.8 }}
@@ -179,7 +179,7 @@ function ProgressBar({ media, accent, onSeek }: ProgressBarProps) {
           />
         </motion.div>
       </div>
-      <span className="w-9 text-right text-[10px] font-medium text-white/50">
+      <span className="w-9 text-right text-[10px] font-medium text-ink/50">
         {seekable ? formatTime(media.durationMs) : "--:--"}
       </span>
     </div>

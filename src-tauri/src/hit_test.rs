@@ -39,7 +39,7 @@ impl Default for Rect {
 #[derive(Default)]
 pub struct HitRegion(pub Mutex<Rect>);
 
-const NEAR: Duration = Duration::from_millis(16);
+const NEAR: Duration = Duration::from_millis(8);
 const FAR: Duration = Duration::from_millis(100);
 const HIDDEN: Duration = Duration::from_millis(500);
 /// В пределах этого расстояния (логические px) переходим на частый опрос.

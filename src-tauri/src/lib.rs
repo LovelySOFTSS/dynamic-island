@@ -7,7 +7,9 @@
 //! * системные события: громкость, Bluetooth (см. `sys_events`);
 //! * трей, глобальный хоткей, мониторинг CPU/RAM, полку файлов.
 
+mod connect;
 mod hit_test;
+mod lyrics;
 mod media;
 mod shelf;
 mod sys_events;
@@ -156,6 +158,7 @@ pub fn run() {
         .manage(MonitorSlot(Mutex::new(None)))
         .manage(hit_test::HitRegion::default())
         .manage(system::SysState::default())
+        .manage(connect::ConnectState::default())
         .invoke_handler(tauri::generate_handler![
             set_hit_region,
             cycle_monitor,
@@ -163,6 +166,10 @@ pub fn run() {
             system::get_system_stats,
             shelf::file_info,
             shelf::drag_icon_path,
+            connect::connectivity_snapshot,
+            connect::radio_states,
+            connect::set_radio,
+            lyrics::fetch_lyrics,
         ])
         .setup(|app| {
             // macOS: без иконки в Dock.

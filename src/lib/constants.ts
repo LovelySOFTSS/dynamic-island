@@ -24,17 +24,19 @@ export const SIZES: Record<Mode, IslandSize> = {
   expanded: { w: 380, h: 160, r: 28 },
 };
 
-/** Пружины. Только type: "spring" — никаких tween/ease. */
+/**
+ * Пружины. Только type: "spring" — никаких tween/ease.
+ * Настроены на плавность: жёсткость ниже, затухание близко к критическому —
+ * форма «перетекает» без рывка в начале и без дребезга в конце.
+ */
 export const SPRING = {
-  /** Главная: «жидкое» перетекание формы капсулы, с лёгким перелётом. */
-  morph: { type: "spring", stiffness: 380, damping: 30, mass: 0.9 },
+  /** Главная: перетекание формы капсулы, едва заметный перелёт. */
+  morph: { type: "spring", stiffness: 210, damping: 25, mass: 1 },
   /** Появление содержимого. */
-  content: { type: "spring", stiffness: 420, damping: 34, mass: 0.7 },
-  /** Быстрые отклики: кнопки, полоски эквалайзера. */
-  snappy: { type: "spring", stiffness: 600, damping: 28, mass: 0.5 },
-  /** Плавные индикаторы: прогресс, шкалы. */
-  gentle: { type: "spring", stiffness: 160, damping: 26, mass: 1 },
+  content: { type: "spring", stiffness: 230, damping: 28, mass: 0.9 },
+  /** Отклики: кнопки, полоски эквалайзера, переключатели. */
+  snappy: { type: "spring", stiffness: 380, damping: 30, mass: 0.7 },
+  /** Плавные индикаторы: прогресс, шкалы, свечение. */
+  gentle: { type: "spring", stiffness: 110, damping: 24, mass: 1 },
 } as const satisfies Record<string, Transition>;
 
-export const ISLAND_SHADOW =
-  "inset 0 0 0 1px rgba(255,255,255,0.12), 0 10px 30px rgba(0,0,0,0.35), 0 2px 8px rgba(0,0,0,0.25)";

@@ -19,17 +19,15 @@ export function FileShelf({ shelf }: FileShelfProps) {
   if (files.length === 0) {
     return (
       <motion.div
-        className="flex h-full flex-col items-center justify-center gap-1.5 rounded-2xl border border-dashed"
+        className={`flex h-full flex-col items-center justify-center gap-1.5 rounded-2xl border border-dashed transition-colors duration-300 ${
+          dragOver ? "border-sky-400 bg-sky-400/10" : "border-ink/20"
+        }`}
         initial={false}
-        animate={{
-          borderColor: dragOver ? "rgba(96,165,250,0.9)" : "rgba(255,255,255,0.18)",
-          backgroundColor: dragOver ? "rgba(96,165,250,0.12)" : "rgba(255,255,255,0)",
-          scale: dragOver ? 1.015 : 1,
-        }}
+        animate={{ scale: dragOver ? 1.015 : 1 }}
         transition={SPRING.snappy}
       >
-        <Inbox size={22} strokeWidth={1.8} className={dragOver ? "text-sky-300" : "text-white/45"} />
-        <span className="text-[12px] font-medium text-white/55">
+        <Inbox size={22} strokeWidth={1.8} className={dragOver ? "text-sky-300" : "text-ink/45"} />
+        <span className="text-[12px] font-medium text-ink/55">
           {dragOver ? "Отпустите, чтобы положить на полку" : "Перетащите файлы сюда"}
         </span>
       </motion.div>
@@ -38,11 +36,10 @@ export function FileShelf({ shelf }: FileShelfProps) {
 
   return (
     <div className="flex h-full items-stretch gap-2">
-      <motion.div
-        className="no-scrollbar flex min-w-0 flex-1 items-center gap-2 overflow-x-auto rounded-2xl px-1"
-        initial={false}
-        animate={{ backgroundColor: dragOver ? "rgba(96,165,250,0.12)" : "rgba(255,255,255,0)" }}
-        transition={SPRING.snappy}
+      <div
+        className={`no-scrollbar flex min-w-0 flex-1 items-center gap-2 overflow-x-auto rounded-2xl px-1 transition-colors duration-300 ${
+          dragOver ? "bg-sky-400/10" : ""
+        }`}
         onWheel={(e) => {
           // Колесо мыши листает полку по горизонтали.
           e.currentTarget.scrollLeft += e.deltaY;
@@ -53,14 +50,14 @@ export function FileShelf({ shelf }: FileShelfProps) {
             <ShelfItem key={file.path} file={file} shelf={shelf} />
           ))}
         </AnimatePresence>
-      </motion.div>
+      </div>
 
       <motion.button
         type="button"
         aria-label="Очистить полку"
         title="Очистить полку"
         onClick={shelf.clear}
-        className="flex w-8 shrink-0 items-center justify-center rounded-xl bg-white/[0.06] text-white/50 hover:bg-red-500/20 hover:text-red-300"
+        className="flex w-8 shrink-0 items-center justify-center rounded-xl bg-ink/[0.06] text-ink/50 hover:bg-red-500/20 hover:text-red-300"
         whileTap={{ scale: 0.9 }}
         transition={SPRING.snappy}
       >
@@ -106,13 +103,13 @@ function ShelfItem({ file, shelf }: ShelfItemProps) {
       transition={SPRING.snappy}
       onPointerDown={onPointerDown}
       title={`${file.name} — потяните, чтобы перенести в другое окно`}
-      className="group relative flex h-[88px] w-[76px] shrink-0 flex-col items-center justify-center gap-1 rounded-2xl bg-white/[0.07] px-1.5"
+      className="group relative flex h-[88px] w-[76px] shrink-0 flex-col items-center justify-center gap-1 rounded-2xl bg-ink/[0.07] px-1.5"
     >
-      <Icon size={26} strokeWidth={1.6} className={file.isDir ? "text-sky-300" : "text-white/80"} />
-      <span className="w-full truncate text-center text-[10px] font-medium text-white/85">
+      <Icon size={26} strokeWidth={1.6} className={file.isDir ? "text-sky-300" : "text-ink/80"} />
+      <span className="w-full truncate text-center text-[10px] font-medium text-ink/85">
         {file.name}
       </span>
-      <span className="text-[9px] font-medium text-white/40">
+      <span className="text-[9px] font-medium text-ink/40">
         {file.isDir ? "Папка" : formatBytes(file.size)}
       </span>
       <button
@@ -120,7 +117,7 @@ function ShelfItem({ file, shelf }: ShelfItemProps) {
         aria-label={`Убрать ${file.name} с полки`}
         onPointerDown={(e) => e.stopPropagation()}
         onClick={() => shelf.remove(file.path)}
-        className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-white/15 text-white/80 opacity-0 transition-opacity group-hover:opacity-100 hover:bg-white/30"
+        className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-ink/15 text-ink/80 opacity-0 transition-opacity group-hover:opacity-100 hover:bg-ink/30"
       >
         <X size={10} strokeWidth={3} />
       </button>
