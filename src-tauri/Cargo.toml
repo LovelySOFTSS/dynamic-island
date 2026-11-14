@@ -24,7 +24,10 @@ sysinfo = { version = "0.33", default-features = false, features = ["system"] }
 [target.'cfg(windows)'.dependencies]
 # Версия закреплена: сигнатуры обработчиков событий и макроса #[implement]
 # отличаются между минорными версиями windows-rs.
+# windows-core нужен макросу #[implement] (он ссылается на крейт по имени).
+windows-core = "0.58"
 windows = { version = "0.58", features = [
+  "implement",
   "Foundation",
   "Foundation_Collections",
   "Media_Control",
